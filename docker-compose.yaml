@@ -3,6 +3,7 @@ services:
   redis:
     image: redis:latest
     restart: on-failure
+    test: redis-cli ping
 
 
   db:
@@ -26,7 +27,7 @@ services:
     tty: true
     ports:
       - "8000:8000"
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       db:
         condition: service_healthy
